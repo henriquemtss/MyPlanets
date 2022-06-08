@@ -3,10 +3,12 @@ package br.com.etecia.myplanets;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -35,6 +37,21 @@ public class MainActivity extends AppCompatActivity {
         MyAdapter adapter = new MyAdapter();
 
         listaPlanetas.setAdapter(adapter);
+
+        listaPlanetas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Intent intent = new Intent(getApplicationContext(), MostraPlanetaActivity.class);
+
+                //Implementando putExtra
+
+                intent.putExtra("nomePlaneta", nomePlanetas[i]);
+                intent.putExtra("imagemPlaneta", imagemPlanetas[i]);
+
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -67,18 +84,11 @@ public class MainActivity extends AppCompatActivity {
 
             txtPlanetas = view1.findViewById(R.id.txtModeloPlaneta);
             imgPlanetas = view1.findViewById(R.id.imgModeloPlaneta);
-            cardView = view1.findViewById(R.id.idCardModelo);
+            //cardView = view1.findViewById(R.id.idCardModelo);
 
             //Implementar os metodos nos componentes
             txtPlanetas.setText(nomePlanetas[i]);
             imgPlanetas.setImageResource(imagemPlanetas[i]);
-
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
 
             return view1;
         }
